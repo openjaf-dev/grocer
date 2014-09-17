@@ -15,6 +15,7 @@ gem 'bootstrap-sass'
 gem 'devise','3.3.0'
 gem 'wicked'
 gem 'therubyracer'
+gem 'ffaker'
 
 group :development do
   gem 'better_errors'
