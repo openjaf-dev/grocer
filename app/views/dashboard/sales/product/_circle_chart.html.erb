@@ -1,0 +1,40 @@
+<%= javascript_include_tag 'd3' %>
+
+<div id="main_breadcrumb">
+  <br>
+  <div id="sequence"></div>
+  <div id="chart">
+    <div id="explanation" style="visibility: hidden;">
+      <span id="percentage"></span><br/>
+      <span id="product"></span><br/>
+    </div>
+  </div>
+</div>
+<div id="sidebar_breadcrumb">
+  <input type="checkbox" id="togglelegend"> Legend<br/>
+  <div id="legend" style="visibility: hidden;"></div>
+</div>
+
+<%= javascript_include_tag 'sequences' %>
+<script>
+    function get_random_color(){
+             return '#' + (function co(lor){   return (lor +=
+                [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
+                && (lor.length == 6) ?  lor : co(lor); })('');
+    };
+    fixed_number = <%= @fixed_number ? 'true' : 'false' %> ;
+    // Mapping of step names to colors.
+    var colors = {};
+    <% @tags.each do |t|%>
+            colors[<%= "\"#{t}\"".html_safe  %>] = get_random_color();
+    <% end %>
+   // "analytics": "#5687d1",
+   // "cluster": "#7b615c",
+   // "search": "#de783b",
+   // "account": "#6ab975",
+   // "other": "#a173d1",
+
+    var json = JSON.parse('<%= @data_json.html_safe %>');
+    createVisualization(json);
+
+</script>
