@@ -1,0 +1,32 @@
+ <h1>Company Info</h1>
+<% @user.owner_organization = Organization.new if @user.owner_organization.nil? %>
+
+<%= render layout: 'form' do |f| %>
+  
+  
+  <%= f.fields_for :owner_organization do |organization_form| %>
+
+     <div class="field">
+       <%= organization_form.label :organization_name %><br />
+       <%= organization_form.text_field :name %>
+     </div>
+
+     <div class="field">
+       <%= organization_form.label :number_of_employees %><br />
+       <%= organization_form.text_field :employees %>
+     </div>
+	 
+     <div class="field">
+       <%= organization_form.label :organization_type %><br />
+       <%= organization_form.text_field :organization_type %>
+     </div>
+	 
+     <div class="field">
+       <%= organization_form.label :demographic_market %><br />
+       <%= organization_form.text_field :demographic_market %>
+	  
+     </div>
+	 
+   <% end %>
+  
+<% end %>

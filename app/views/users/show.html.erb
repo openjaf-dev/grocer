@@ -1,3 +1,39 @@
 <h3>User</h3>
 <p>Name: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
+<p>Position: <%= @user.position if @user.position %></p>
+
+<h4>Owner Organizations </h4>
+
+<% if @user.owner_organization %>
+
+  <% organization = @user.owner_organization %>
+  
+  <h4> =========Organization====== </h4>
+
+  <p>Organization Name: <%= organization.name %></p>
+
+  <p>Number of employees: <%= organization.employees %></p>
+
+  <p>Organization Type: <%= organization.organization_type %></p>
+
+  <p>Demographic market: <%= organization.demographic_market %></p>
+
+  <% if organization.address %>
+  
+    <% address = organization.address %>
+    <h5> =========Address========== </h5>
+    <p>Address 1: <%= address.address1 %></p>
+	<p>Address 2: <%= address.address2 %></p>
+	<p>City: <%= address.city %></p>
+	<p>State: <%= address.state %></p>
+	<p>Country: <%= address.country %></p>
+	<p>Phone: <%= address.phone %></p>
+	<p>Zipcode: <%= address.zipcode %></p>
+	<p> =================== </p>
+	
+  <% end %>
+  
+	
+<% end %>
+
