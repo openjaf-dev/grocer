@@ -16,7 +16,14 @@
 	
 	<ul class="nav navbar-nav navbar-right">
 		<li class="dropdown">
-			<a data-toggle="dropdown" class="dropdown-toggle" href="#">Setting<b class="caret"></b></a>
+			
+			<a data-toggle="btn btn-link dropdown" class="dropdown-toggle" href="#">
+				<% if user_signed_in? %>
+					<span class="name"><%= current_user.name.capitalize if current_user.name %></span> <span class="caret"></span>
+				<% else %>
+					<span class="name">{User}</span> <span class="caret"></span>
+				<% end %>
+			</a>
 			<ul class="dropdown-menu">
 				<li><%= link_to 'Company Setting', "#" %></li>
 				<li><%= link_to 'User Profile', "#" %></li>
