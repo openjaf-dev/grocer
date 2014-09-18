@@ -16,6 +16,8 @@ gem 'devise','3.3.0'
 gem 'wicked'
 gem 'therubyracer'
 gem 'ffaker'
+gem 'chartkick'
+gem 'awesome_nested_set','3.0.1'
 
 group :development do
   gem 'better_errors'
