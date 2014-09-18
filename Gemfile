@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+#source 'file:///home/jorge/mygems/'
 ruby '2.1.2'
 gem 'rails', '4.1.4'
 gem 'sqlite3'
@@ -11,8 +12,15 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass'
-gem 'devise'
+gem 'devise','3.3.0'
 gem 'wicked'
+gem 'therubyracer'
+gem 'ffaker'
+gem 'chartkick'
+
+gem 'awesome_nested_set'
+gem 'acts_as_list'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
