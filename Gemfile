@@ -1,5 +1,5 @@
-#source 'https://rubygems.org'
-source 'file:///home/jorge/mygems/'
+source 'https://rubygems.org'
+#source 'file:///home/jorge/mygems/'
 ruby '2.1.2'
 gem 'rails', '4.1.4'
 gem 'sqlite3'
@@ -16,6 +16,10 @@ gem 'devise','3.3.0'
 gem 'wicked'
 gem 'therubyracer'
 gem 'ffaker'
+gem 'chartkick'
+
+gem 'awesome_nested_set'
+gem 'acts_as_list'
 
 group :development do
   gem 'better_errors'

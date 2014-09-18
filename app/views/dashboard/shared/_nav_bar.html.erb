@@ -1,19 +1,23 @@
-<div class="btn-group pull-right">
-  <button id="btnGroupVerticalDrop1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-    Date Options
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" role="menu">
-    <%= render 'layouts/dashboard_navigation_links' %>
-  </ul>
-</div>
+<br>
+<ul class="nav nav-tabs pull-right" role="tablist">
+	<div class="btn-group ">
+	  <button id="btnGroupVerticalDrop1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+	    <%= "#{@start_date} / #{@end_date}"%></br>
+		<small><%= "#{@compare_start_date} / #{@compare_end_date}"%></small>
+		
+	    <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" role="menu">
+	    <%= render 'layouts/dashboard_navigation_links' %>
+	  </ul>
+	</div>
+
+</ul>
+
+
 <aside id="sidebar">
-  <br>
   <%= yield :nav_bar %>
 </aside>
-
-
-
 
 <% controller = params[:controller] %>
 <% action = params[:action] %>
