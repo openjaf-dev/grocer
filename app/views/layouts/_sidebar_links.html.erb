@@ -1,0 +1,11 @@
+<ul class="nav nav-sidebar">
+  <li class="active"><a href="#">Dashboard</a></li>
+
+  <% ['revenues','transactions','items','adjustments','taxes','shipments'].each do |resource| %>
+      <li>
+        <%=link_to  "/dashboard/sales/#{resource}" do %>
+            <span class="text"><%= resource.camelize %></span>
+        <% end %>
+      </li>
+  <% end %>
+</ul>
