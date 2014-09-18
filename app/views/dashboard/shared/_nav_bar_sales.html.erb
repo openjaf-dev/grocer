@@ -15,7 +15,7 @@
 <% if action == 'index' %>
 <div class="chart-nav pull-right">
 	<strong>Select period: </strong>
-	<ul class= 'list-inline'>
+	<ul class='list-inline'>
 		<% {day: "Daily", week: "Weekly", month: "Monthly" }.each do |period, presentation| %>
 		    <li class="<%= 'active' if @filter == period %>">
 				<%=link_to({:controller => controller,:action => action,:filter => period }) do %>

@@ -5,9 +5,14 @@ Rails.application.routes.draw do
   resources :users
   resources :user_steps
   resources :organizations
+  
+  #devise_scope :user do
+  #  #match '/users/sign_out' => 'sessions#destroy', via: [:get, :delete]
+  #  get 'users/sign_out' => "devise/sessions#destroy"
+  #end
 
   namespace :dashboard do
-    get '/overview', to: 'overview#index', as: 'overview'
+    get '/overview', to: 'overview#index', as: 'overview'   
     
     namespace :sales do
       get 'product/by_categories',to: "product#by_categories"
