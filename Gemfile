@@ -17,7 +17,9 @@ gem 'wicked'
 gem 'therubyracer'
 gem 'ffaker'
 gem 'chartkick'
-gem 'awesome_nested_set','3.0.1'
+
+gem 'awesome_nested_set'
+gem 'acts_as_list'
 
 group :development do
   gem 'better_errors'

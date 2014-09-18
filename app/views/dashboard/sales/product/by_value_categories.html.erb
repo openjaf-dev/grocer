@@ -1,9 +1,7 @@
-<div class="row">
+<div>
   <div>
     <%=render 'nav_bar_value_products'%>
   </div>
+  <% @fixed_number = true %>
   <%=render 'circle_chart' %>
-</div>
-<div class="col-md-10 pull-right">
-  <%= render 'dashboard/shared/products_data_table' %>
 </div>
