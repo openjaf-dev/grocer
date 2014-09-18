@@ -5,6 +5,8 @@
     <title><%= content_for?(:title) ? yield(:title) : "Myapp" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Myapp" %>">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+
+    <%= javascript_include_tag 'highcharts', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'chartkick', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
@@ -33,5 +35,6 @@
 
     <%= yield :charts_js %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
   </body>
 </html>
