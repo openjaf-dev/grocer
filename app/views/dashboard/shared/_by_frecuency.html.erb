@@ -1,7 +1,7 @@
 <% if @data[0][:data].empty? %>
     <h3>No elements found.</h3>
 <% else %>
-    <%= column_chart @data %>
+    <%= column_chart @data,library: {chart:{style: {overflow: 'visible'}}} %>
 <%end%>
 
 
