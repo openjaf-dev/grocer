@@ -7,6 +7,10 @@ class Product < ActiveRecord::Base
     has_many :classifications, dependent: :delete_all, inverse_of: :product
     has_many :taxons, through: :classifications
 
+
+    has_many :classifications, dependent: :delete_all, inverse_of: :product
+    has_many :taxons, through: :classifications
+
     accepts_nested_attributes_for :variants
     accepts_nested_attributes_for :images
     accepts_nested_attributes_for :properties

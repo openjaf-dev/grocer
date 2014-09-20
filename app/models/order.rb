@@ -26,8 +26,6 @@ class Order < ActiveRecord::Base
   # always exclude the upper boundary for semi open intervals
   scope :placed_on_lt, -> (reference_time) { where('students.placed_on < ?', reference_time) }
 
-
-  
   scope :by_wday, -> (collection) { collection.group_by{|o| o.placed_on.wday}.sort{|a,b| a[0]<=>b[0]} }
   
   scope :by_hour, -> (collection) { collection.group_by{|o| o.placed_on.to_time.hour}.sort{|a,b| a[0]<=>b[0]} }
