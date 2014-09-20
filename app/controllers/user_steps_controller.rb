@@ -10,9 +10,6 @@ class UserStepsController < ApplicationController
   def update
     @user = current_user
     
-    puts "*********** user #{@user.owner_organization.inspect}"
-    puts "*********** permit_params #{permit_params.inspect}"
-    
     @user.attributes = permit_params
     @user.save!
 

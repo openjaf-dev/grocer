@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910122448) do
+ActiveRecord::Schema.define(version: 20140920150318) do
+
+  create_table "accounts", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "owner_id"
+    t.integer  "organization_id"
+  end
+
+  add_index "accounts", ["organization_id"], name: "index_accounts_on_organization_id"
+  add_index "accounts", ["owner_id"], name: "index_accounts_on_owner_id"
 
   create_table "addresses", force: true do |t|
     t.string   "firstname"
@@ -97,6 +107,16 @@ ActiveRecord::Schema.define(version: 20140910122448) do
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
   add_index "line_items", ["variant_id"], name: "index_line_items_on_variant_id"
 
+  create_table "members", force: true do |t|
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "members", ["account_id"], name: "index_members_on_account_id"
+  add_index "members", ["user_id"], name: "index_members_on_user_id"
+
   create_table "options", force: true do |t|
     t.string   "option_type"
     t.string   "option_value"
@@ -137,29 +157,16 @@ ActiveRecord::Schema.define(version: 20140910122448) do
   add_index "orders", ["bill_address_id"], name: "index_orders_on_bill_address_id"
   add_index "orders", ["ship_address_id"], name: "index_orders_on_ship_address_id"
 
-  create_table "organization_users", force: true do |t|
-    t.integer  "organization_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "organization_users", ["organization_id"], name: "index_organization_users_on_organization_id"
-  add_index "organization_users", ["user_id"], name: "index_organization_users_on_user_id"
-
   create_table "organizations", force: true do |t|
     t.string   "name"
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "owner_id"
     t.string   "anual_sales"
     t.integer  "employees"
     t.string   "organization_type"
     t.string   "demographic_market"
   end
-
-  add_index "organizations", ["owner_id"], name: "index_organizations_on_owner_id"
 
   create_table "payments", force: true do |t|
     t.integer  "number"

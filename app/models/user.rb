@@ -5,10 +5,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  has_one :owner_organization, :class_name => 'Organization', :foreign_key => :owner_id
-
-  has_many :organization_users
-  has_many :organizations, :through => :organization_users  
-
-  accepts_nested_attributes_for :owner_organization
+  has_one :account, :foreign_key => :owner_id
+  accepts_nested_attributes_for :account
 end
