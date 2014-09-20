@@ -11,10 +11,10 @@
 	 
 	  
 		<%= link_to dashboard_sales_revenues_path, class: 'navbar-brand'  do %>
-		  <% if user_signed_in? && !current_user.owner_organization.nil? && !current_user.owner_organization.name.nil? %>
-			  &nbsp;&nbsp;&nbsp;<%= current_user.owner_organization.name.capitalize %>
+		  <% if user_signed_in? && !current_user.account.nil? && !current_user.account.organization.nil? && !current_user.account.organization.name.blank? %>
+			  &nbsp;&nbsp;&nbsp;<%= current_user.account.organization.name.capitalize %>
 		  <% else %>
-			  &nbsp;&nbsp;&nbsp;{Company Name}
+			  <strong>&nbsp;&nbsp;&nbsp;{</strong> Company Name <strong>}</strong>
 		  <% end %>
 		<% end %>
 	

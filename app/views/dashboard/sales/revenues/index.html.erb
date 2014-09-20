@@ -1,3 +1,9 @@
+      <%= label_tag :datetime, 'DateTime' %>
+      <div class="input-group date" id="datetimepicker">
+        <%= text_field_tag :datetime, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+      </div>
+
 <%= render 'dashboard/shared/form_sales' %>
 <% puts @data.inspect %>
 <% if false 
