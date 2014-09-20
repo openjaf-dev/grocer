@@ -10,6 +10,31 @@
         <%= line_chart @data, library: {tooltip:{enabled:false},chart:{zoomType:'x',style: {overflow: 'visible'}} } %>
     <% end %>
     <br/>
+
+
+    <div class="container">
+      <div class="row">
+        <div class='col-sm-6'>
+          <div class="form-group">
+            <div class='input-group date' id='datetimepicker5'>
+              <input type='text' class="form-control" data-date-format="YYYY/MM/DD"/>
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-calendar"></span>
+					</span>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker5').datetimepicker({
+                    //pickTime: false
+                });
+            });
+        </script>
+      </div>
+    </div>
+
 	<%= render 'dashboard/shared/data_table', data: @main_data %>
 
 <%end%>
+

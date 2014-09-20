@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_start_date
-    session[:start_date]
+    session[:start_date].to_date if session[:start_date]
   end
 
   def current_amount
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_compare_start_date
-    session[:compare_start_date]
+    session[:compare_start_date].to_date if session[:compare_start_date]
   end
 
   def current_compare_amount
