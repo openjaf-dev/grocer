@@ -2,7 +2,7 @@
 var width = 530;
 var height = 470;
 var radius = 200;//Math.min(width, height) / 2;
-var fixed_number = false ;
+var fixed_number = false;
 var product = null;
 var legend_height = 10;
 // Breadcrumb dimensions: width, height, spacing, width of tip/tail.length

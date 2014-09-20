@@ -17,10 +17,12 @@ module Dashboard
         @main_set = filter_by(@filter, @main_data).sort
         @compare_set = filter_by(@filter, @compare_data).sort
 
-        diff = @main_set.first[0] - @compare_set.first[0]
-        temp = {}
-        @compare_set.each { |x| temp[ x[0] + diff ] = x[1] }
-        @compare_set = temp
+        unless @compare_set.empty?
+          diff = @main_set.empty? ? 0 : @main_set.first[0] - @compare_set.first[0]
+          temp = {}
+          @compare_set.each { |x| temp[ x[0] + diff ] = x[1] }
+          @compare_set = temp
+        end
         
         set_data  
       end
@@ -80,26 +82,60 @@ module Dashboard
           
           if params[:date_range]
             t_opt = time_opt[params[:date_range]]
-            opt = {start: d, amount: t_opt, compare: d - t_opt, compare_amount: t_opt}
-            
+            #opt = {start: d, amount: t_opt, compare: d - t_opt, compare_amount: t_opt}
+            session[:start_date] = d
+            session[:amount] = t_opt
+            session[:compare_start_date] = d - t_opt
+            session[:compare_amount] = t_opt
+
           elsif params[:from_time] && params[:to_time]
-            opt[:start] = params[:to_time].to_date
-            opt[:amount] = params[:to_time].to_date - params[:from_time].to_date
+            session[:start_date] = params[:to_time].to_date
+            #opt[:start] = params[:to_time].to_date
+            session[:amount] = params[:to_time].to_date - params[:from_time].to_date
+            #opt[:amount] = params[:to_time].to_date - params[:from_time].to_date
             
             if params[:compare_from_time] && params[:compare_to_time]
-              opt[:compare] = params[:compare_to_time].to_date
-              opt[:compare_amount] = params[:compare_to_time].to_date - params[:compare_from_time].to_date
+              session[:compare_start_date] = params[:compare_to_time].to_date
+              #opt[:compare] = params[:compare_to_time].to_date
+              session[:compare_amount] = params[:compare_to_time].to_date - params[:compare_from_time].to_date
+              #opt[:compare_amount] = params[:compare_to_time].to_date - params[:compare_from_time].to_date
             end
           end
           
-          get_params opt
+          get_params #opt
         end
         
-        def get_params(options = {})
-          options[:start] ||= Date.today
-          options[:amount] ||= 3.months
-          options[:compare] ||= Date.today - 3.months
-          options[:compare_amount] ||= 3.months 
+        def get_params
+          options = {}
+          if current_start_date.nil?
+            options[:start] ||= Date.today
+            session[:start_date] = options[:start]
+          else
+            options[:start] = current_start_date
+          end
+
+          if current_amount.nil?
+            options[:amount] ||= 3.months
+            session[:amount] = options[:amount]
+          else
+            options[:amount] = current_amount
+          end
+
+          if current_compare_start_date.nil?
+            options[:compare] ||= Date.today - 3.months
+            session[:compare_start_date] = options[:compare]
+          else
+            options[:compare] = current_compare_start_date
+          end
+
+          if current_compare_amount.nil?
+            options[:compare_amount] ||= 3.months
+            session[:compare_amount] = options[:compare_amount]
+          else
+            options[:compare_amount] = current_compare_amount
+          end
+
+
 
           @start_date =  options[:start] - options[:amount]
           @end_date = options[:start]
