@@ -14,7 +14,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise','3.3.0'
 gem 'wicked'
-gem 'therubyracer'
+gem 'rails_admin'
 gem 'ffaker'
 gem 'chartkick'
 
