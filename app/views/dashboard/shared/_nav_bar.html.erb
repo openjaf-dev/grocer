@@ -37,27 +37,27 @@
       <%=form_tag({ :controller => controller,:action => action },:method => :get) do %>
           <div class="modal-body">
             <div class="row show-grid">
-				
-		  <h5 col-md-2>From:</h5> 
-              <div class="col-md-6">
-                <h5>From:</h5>
-                <%= datetime_field_tag :from_time %>
-              </div>
+			
+	          <div class="col-md-6">
+				<h5 >From:</h5> 
+	            <%= datetime_field_tag :from_time %>
+	          </div>
 	
-		  <h5 col-md-2>To:</h5> 
-              <div class="col-md-6">
-                <h5>To:</h5>
-                <%= datetime_field_tag :to_time %>
-              </div>
+	          <div class="col-md-6">
+				  <h5 >To:</h5>
+				  <%= datetime_field_tag :to_time %>
+	          </div>
 		
             </div>
           </div>
+		  
           <div class="modal-footer">
             <button class="btn btn-default" data-dismiss="modal" type="button">
               Close
             </button>
             <%= submit_tag 'Filter Chart',:class => 'btn btn-primary' %>
           </div>
+		  
       <% end %>
     </div>
   </div>
