@@ -3,8 +3,9 @@
 	<div class="btn-group ">
 	  <button id="btnGroupVerticalDrop1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
 	    <%= "#{@start_date} / #{@end_date}"%></br>
-		<small><%= "#{@compare_start_date} / #{@compare_end_date}"%></small>
-		
+        <% if @compare_start_date %>
+		    <small><%= "#{@compare_start_date} / #{@compare_end_date}"%></small>
+		<% end %>
 	    <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" role="menu">

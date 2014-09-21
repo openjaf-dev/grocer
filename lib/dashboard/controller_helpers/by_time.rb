@@ -15,9 +15,9 @@ module Dashboard
       def index        
         @filter = params[:filter] ||= 'week'   
         @main_set = filter_by(@filter, @main_data).sort
-        @compare_set = filter_by(@filter, @compare_data).sort
+        @compare_set = filter_by(@filter, @compare_data).sort if @compare_data
 
-        unless @compare_set.empty?
+        unless @compare_set.nil?
           diff = @main_set.empty? ? 0 : @main_set.first[0] - @compare_set.first[0]
           temp = {}
           @compare_set.each { |x| temp[ x[0] + diff ] = x[1] }
@@ -99,6 +99,9 @@ module Dashboard
               #opt[:compare] = params[:compare_to_time].to_date
               session[:compare_amount] = params[:compare_to_time].to_date - params[:compare_from_time].to_date
               #opt[:compare_amount] = params[:compare_to_time].to_date - params[:compare_from_time].to_date
+            else
+              session[:compare_start_date] = nil
+              session[:compare_amount] = nil
             end
           end
           
@@ -122,14 +125,14 @@ module Dashboard
           end
 
           if current_compare_start_date.nil?
-            options[:compare] ||= Date.today - 3.months
+            options[:compare] ||= current_start_date - current_amount
             session[:compare_start_date] = options[:compare]
           else
             options[:compare] = current_compare_start_date
           end
 
           if current_compare_amount.nil?
-            options[:compare_amount] ||= 3.months
+            options[:compare_amount] ||= current_amount
             session[:compare_amount] = options[:compare_amount]
           else
             options[:compare_amount] = current_compare_amount
@@ -140,8 +143,10 @@ module Dashboard
           @start_date =  options[:start] - options[:amount]
           @end_date = options[:start]
 
-          @compare_start_date = options[:compare] - options[:compare_amount]
-          @compare_end_date = options[:compare]
+          unless current_compare_start_date.nil?
+            @compare_start_date = options[:compare] - options[:compare_amount]
+            @compare_end_date = options[:compare]
+          end
         end
         
      end 
