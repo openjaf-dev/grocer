@@ -273,7 +273,7 @@ function drawLegend() {
       .attr("rx", li.r)
       .attr("ry", li.r)
       .attr("width", function(d) {
-          var length_b = d.key.length * 7;
+          var length_b = d.key.length * 9;
           if(max_width < length_b)max_width = length_b;
           return  length_b;
       })
@@ -281,7 +281,7 @@ function drawLegend() {
       .style("fill", function(d) { return d.value; }).attr("width", max_width);
 
   g.append("svg:text")
-      .attr("x", function(d) { return (d.key.length * 7) / 2 ; } )
+      .attr("x", function(d) { return (d.key.length * 9) / 2 ; } )
       .attr("y", li.h / 2)
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
