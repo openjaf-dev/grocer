@@ -1,6 +1,5 @@
 // import the CSS framework
-@import "bootstrap-sprockets";
-@import "bootstrap";
+// import bootstrap-sprockets before bootstrap if using bootstrap >= 3.2
 
 body{
   padding-top: 60px;

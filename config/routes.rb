@@ -4,8 +4,12 @@ Rails.application.routes.draw do
   # devise_for :users
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users
-  resources :user_steps
   resources :organizations
+  resources :organization_steps
+  
+  get "/organization_step" => "organization_steps#create", :as => :create_organization_step
+ 
+  #post "organization_steps/organization", to: "organization_steps#organization"
   
   #devise_scope :user do
   #  #match '/users/sign_out' => 'sessions#destroy', via: [:get, :delete]

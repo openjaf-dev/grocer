@@ -1,4 +1,6 @@
 class Variant < ActiveRecord::Base
+  include AccountScoped
+  
   belongs_to :product
   has_many :options
   has_many :images

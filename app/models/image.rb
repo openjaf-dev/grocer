@@ -1,4 +1,6 @@
 class Image < ActiveRecord::Base
+  include AccountScoped
+    
   belongs_to :variant
   belongs_to :product
 
