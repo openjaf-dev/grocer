@@ -1,3 +1,4 @@
+<% puts "*********** @organization #{@organization.inspect}" %>
 <%= form_for @organization, url: wizard_path, method: :put do |f| %>
   <% if @organization.errors.any? %>
     <div class="error_messages">
@@ -9,6 +10,9 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= hidden_field_tag :organization_id, f.object.id %>
+  
   <%= yield f %>
   
   <div class="actions">

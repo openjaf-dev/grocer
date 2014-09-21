@@ -1,5 +1,5 @@
 class Classification < ActiveRecord::Base
-  belongs_to :account
+  include AccountScoped
   
   self.table_name = 'products_taxons'
   acts_as_list

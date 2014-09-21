@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  belongs_to :account
+  include AccountScoped
   
   belongs_to :bill_address, class_name: 'Address'  
   belongs_to :ship_address, class_name: 'Address'

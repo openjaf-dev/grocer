@@ -1,5 +1,5 @@
 class LineItem < ActiveRecord::Base
-  belongs_to :account
+  include AccountScoped
   
   belongs_to :order
   belongs_to :product

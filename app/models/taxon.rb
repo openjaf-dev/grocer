@@ -1,5 +1,5 @@
 class Taxon < ActiveRecord::Base
-  belongs_to :account
+  include AccountScoped
   
   acts_as_nested_set dependent: :destroy
   belongs_to :taxonomy, inverse_of: :taxons

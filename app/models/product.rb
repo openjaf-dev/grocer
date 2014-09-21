@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  belongs_to :account
+  include AccountScoped
   
   has_many :variants
   has_many :images

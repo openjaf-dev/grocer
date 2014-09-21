@@ -1,5 +1,5 @@
 class Taxonomy < ActiveRecord::Base
-  belongs_to :account
+  include AccountScoped
   
   validates :name, presence: true
 

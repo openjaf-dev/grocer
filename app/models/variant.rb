@@ -1,5 +1,5 @@
 class Variant < ActiveRecord::Base
-  belongs_to :account
+  include AccountScoped
   
   belongs_to :product
   has_many :options

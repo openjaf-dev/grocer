@@ -26,8 +26,14 @@ class ApplicationController < ActionController::Base
   private
  
     def scope_current_account
-      current_user.account ||= Account.create if signed_in?
+      if current_user && current_user.account.nil?
+        new_account = Account.create(organization: Organization.new)
+        current_user.account = new_account
+        current_user.save
+      end  
       Account.current = current_user.account if signed_in?
+      puts "******************** entro en Account.current #{Account.current.inspect} ************
+      current_user: #{current_user.inspect}"
       yield
     ensure
       Account.current = nil

@@ -1,5 +1,5 @@
 class Dimension < ActiveRecord::Base
-  belongs_to :account
+  include AccountScoped
   
   belongs_to :image
 end
