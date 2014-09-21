@@ -11,16 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920150318) do
+ActiveRecord::Schema.define(version: 20140921000733) do
 
   create_table "accounts", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
-    t.integer  "organization_id"
   end
 
-  add_index "accounts", ["organization_id"], name: "index_accounts_on_organization_id"
   add_index "accounts", ["owner_id"], name: "index_accounts_on_owner_id"
 
   create_table "addresses", force: true do |t|
@@ -36,8 +34,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
+    t.integer  "account_id"
   end
 
+  add_index "addresses", ["account_id"], name: "index_addresses_on_account_id"
   add_index "addresses", ["organization_id"], name: "index_addresses_on_organization_id"
 
   create_table "adjustments", force: true do |t|
@@ -46,8 +46,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "adjustments", ["account_id"], name: "index_adjustments_on_account_id"
   add_index "adjustments", ["order_id"], name: "index_adjustments_on_order_id"
 
   create_table "admin_users", force: true do |t|
@@ -74,8 +76,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "image_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "dimensions", ["account_id"], name: "index_dimensions_on_account_id"
   add_index "dimensions", ["image_id"], name: "index_dimensions_on_image_id"
 
   create_table "images", force: true do |t|
@@ -87,8 +91,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "images", ["account_id"], name: "index_images_on_account_id"
   add_index "images", ["product_id"], name: "index_images_on_product_id"
   add_index "images", ["variant_id"], name: "index_images_on_variant_id"
 
@@ -101,8 +107,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.datetime "updated_at"
     t.integer  "product_id"
     t.integer  "variant_id"
+    t.integer  "account_id"
   end
 
+  add_index "line_items", ["account_id"], name: "index_line_items_on_account_id"
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
   add_index "line_items", ["variant_id"], name: "index_line_items_on_variant_id"
@@ -123,8 +131,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "variant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "options", ["account_id"], name: "index_options_on_account_id"
   add_index "options", ["variant_id"], name: "index_options_on_variant_id"
 
   create_table "order_totals", force: true do |t|
@@ -137,8 +147,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "order_totals", ["account_id"], name: "index_order_totals_on_account_id"
   add_index "order_totals", ["order_id"], name: "index_order_totals_on_order_id"
 
   create_table "orders", force: true do |t|
@@ -152,8 +164,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.datetime "updated_at"
     t.integer  "bill_address_id"
     t.integer  "ship_address_id"
+    t.integer  "account_id"
   end
 
+  add_index "orders", ["account_id"], name: "index_orders_on_account_id"
   add_index "orders", ["bill_address_id"], name: "index_orders_on_bill_address_id"
   add_index "orders", ["ship_address_id"], name: "index_orders_on_ship_address_id"
 
@@ -166,7 +180,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "employees"
     t.string   "organization_type"
     t.string   "demographic_market"
+    t.integer  "account_id"
   end
+
+  add_index "organizations", ["account_id"], name: "index_organizations_on_account_id"
 
   create_table "payments", force: true do |t|
     t.integer  "number"
@@ -176,8 +193,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "payments", ["account_id"], name: "index_payments_on_account_id"
   add_index "payments", ["order_id"], name: "index_payments_on_order_id"
 
   create_table "products", force: true do |t|
@@ -193,7 +212,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.string   "shipping_category"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
+
+  add_index "products", ["account_id"], name: "index_products_on_account_id"
 
   create_table "products_taxons", force: true do |t|
     t.integer  "product_id"
@@ -201,8 +223,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+    t.integer  "account_id"
   end
 
+  add_index "products_taxons", ["account_id"], name: "index_products_taxons_on_account_id"
   add_index "products_taxons", ["product_id"], name: "index_products_taxons_on_product_id"
   add_index "products_taxons", ["taxon_id"], name: "index_products_taxons_on_taxon_id"
 
@@ -212,8 +236,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "properties", ["account_id"], name: "index_properties_on_account_id"
   add_index "properties", ["product_id"], name: "index_properties_on_product_id"
 
   create_table "shipments", force: true do |t|
@@ -229,8 +255,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "product_id"
     t.integer  "order_id"
     t.datetime "created_at"
+    t.integer  "account_id"
   end
 
+  add_index "shipments", ["account_id"], name: "index_shipments_on_account_id"
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id"
   add_index "shipments", ["product_id"], name: "index_shipments_on_product_id"
   add_index "shipments", ["variant_id"], name: "index_shipments_on_variant_id"
@@ -244,8 +272,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "payment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "sources", ["account_id"], name: "index_sources_on_account_id"
   add_index "sources", ["payment_id"], name: "index_sources_on_payment_id"
 
   create_table "taxonomies", force: true do |t|
@@ -253,7 +283,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
+
+  add_index "taxonomies", ["account_id"], name: "index_taxonomies_on_account_id"
 
   create_table "taxons", force: true do |t|
     t.string   "name"
@@ -266,8 +299,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "depth"
+    t.integer  "account_id"
   end
 
+  add_index "taxons", ["account_id"], name: "index_taxons_on_account_id"
   add_index "taxons", ["taxonomy_id"], name: "index_taxons_on_taxonomy_id"
 
   create_table "users", force: true do |t|
@@ -285,8 +320,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "position"
+    t.integer  "account_id"
   end
 
+  add_index "users", ["account_id"], name: "index_users_on_account_id"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
@@ -298,8 +335,10 @@ ActiveRecord::Schema.define(version: 20140920150318) do
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
+  add_index "variants", ["account_id"], name: "index_variants_on_account_id"
   add_index "variants", ["product_id"], name: "index_variants_on_product_id"
 
 end

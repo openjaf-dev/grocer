@@ -39,13 +39,20 @@
             <div class="row show-grid">
 			
 	          <div class="col-md-6">
-				<h5 >From:</h5> 
-	            <%= datetime_field_tag :from_time %>
+				<%= label_tag :from_time, 'From:' %>
+                <div class="input-group date datetimepicker">
+                  <%= text_field_tag :from_time, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+
 	          </div>
 	
 	          <div class="col-md-6">
-				  <h5 >To:</h5>
-				  <%= datetime_field_tag :to_time %>
+                <%= label_tag :to_time, 'To:' %>
+                <div class="input-group date datetimepicker">
+                  <%= text_field_tag :to_time, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
 	          </div>
 		
             </div>
@@ -79,35 +86,45 @@
           <div class="modal-body">
 			  
             <div class="row show-grid">
-				<h3>Date Range:</h3>  
+				<h5>Date Range:</h5>
 				
-              <h5>Data:</h5>
-              <div class="col-md-6">
-                <h5>From:</h5>
-                <%= datetime_field_tag :from_time %>
-              </div>
+				<h5>Data:</h5>
+				<div class="col-md-6">
+					<%= label_tag :from_time, 'From:' %>
+					<div class="input-group date datetimepicker">
+					  <%= text_field_tag :from_time, nil, class: 'form-control', 
+					  data: { date_format: 'YYYY/MM/DD' } %>
+					  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
 
-				<h5 col-md-2>To:</h5> 
               <div class="col-md-6">
-                <h5>To:</h5>
-                <%= datetime_field_tag :to_time %>
+                <%= label_tag :to_time, 'To:' %>
+                <div class="input-group date datetimepicker">
+                  <%= text_field_tag :to_time, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
               </div>
  
             </div>
-			
+			<hr>
             <div class="row show-grid">
               <h5>Compare To:</h5>
-				  
-				<h5 col-md-2>From:</h5> 
+
               <div class="col-md-6">
-                <h5>From:</h5>
-                <%= datetime_field_tag :compare_from_time %>
+                <%= label_tag :compare_from_time, 'From:' %>
+                <div class="input-group date datetimepicker">
+                  <%= text_field_tag :compare_from_time, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
               </div>
 
-				<h5 col-md-2>To:</h5> 
               <div class="col-md-6">
-                <h5>To:</h5>
-                <%= datetime_field_tag :compare_to_time %>
+                <%= label_tag :compare_to_time, 'To:' %>
+                <div class="input-group date datetimepicker">
+                  <%= text_field_tag :compare_to_time, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
               </div>
             </div>
  

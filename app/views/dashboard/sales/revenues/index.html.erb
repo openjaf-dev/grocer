@@ -10,6 +10,8 @@
         <%= line_chart @data, library: {tooltip:{enabled:false},chart:{zoomType:'x',style: {overflow: 'visible'}} } %>
     <% end %>
     <br/>
+
 	<%= render 'dashboard/shared/data_table', data: @main_data %>
 
 <%end%>
+

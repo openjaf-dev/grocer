@@ -1,4 +1,6 @@
 class Taxonomy < ActiveRecord::Base
+  include AccountScoped
+  
   validates :name, presence: true
 
   has_many :taxons, inverse_of: :taxonomy
