@@ -86,16 +86,17 @@
           <div class="modal-body">
 			  
             <div class="row show-grid">
-				<h3 style="text-align: center">Date Range</h3>
+				<h5>Date Range:</h5>
 				
-              <h5>Data:</h5>
-              <div class="col-md-6">
-                <%= label_tag :from_time, 'From:' %>
-                <div class="input-group date datetimepicker">
-                  <%= text_field_tag :from_time, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-              </div>
+				<h5>Data:</h5>
+				<div class="col-md-6">
+					<%= label_tag :from_time, 'From:' %>
+					<div class="input-group date datetimepicker">
+					  <%= text_field_tag :from_time, nil, class: 'form-control', 
+					  data: { date_format: 'YYYY/MM/DD' } %>
+					  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
 
               <div class="col-md-6">
                 <%= label_tag :to_time, 'To:' %>

@@ -1,4 +1,6 @@
 class Payment < ActiveRecord::Base
+  belongs_to :account
+  
   belongs_to :order
   has_one :source
   

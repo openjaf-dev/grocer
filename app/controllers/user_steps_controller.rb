@@ -25,7 +25,7 @@ private
   def permit_params    
     params.require(:user).permit(:name, 
     owner_organization_attributes: [:name, :employees, :organization_type, :demographic_market,
-    address_attributes: [:address1,:address2,:city,:state,:country,:phone, :zipcode]  ])
+    address_attributes: [:address1,:address2,:city,:state,:country,:phone, :zipcode] ])
   end  
 
 end

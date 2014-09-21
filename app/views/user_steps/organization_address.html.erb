@@ -2,6 +2,7 @@
 
 <%= render layout: 'form' do |f| %>
   <% f.object.account ||= Account.new %>
+  
   <%= f.fields_for :account do |account_form| %>
 	  
 	  <% account_form.object.organization ||= Organization.new %>

@@ -5,10 +5,9 @@ class Account < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
   accepts_nested_attributes_for :owner
 
-  has_many :members, :class_name => "Member"
-  has_many :users, :through => :members
+  has_many :users
   
-  belongs_to :organization
+  has_one :organization
   accepts_nested_attributes_for :organization
 
   def self.create_with_owner(params={})
@@ -22,4 +21,13 @@ class Account < ActiveRecord::Base
   def owner?(user)
     owner == user
   end
+  
+  def self.current
+    Thread.current[:current_account]
+  end
+  
+  def self.current=(account)
+    Thread.current[:current_account] = account
+  end
+  
 end

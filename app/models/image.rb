@@ -1,4 +1,6 @@
 class Image < ActiveRecord::Base
+  belongs_to :account
+    
   belongs_to :variant
   belongs_to :product
 

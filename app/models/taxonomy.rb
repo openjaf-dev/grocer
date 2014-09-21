@@ -1,4 +1,6 @@
 class Taxonomy < ActiveRecord::Base
+  belongs_to :account
+  
   validates :name, presence: true
 
   has_many :taxons, inverse_of: :taxonomy

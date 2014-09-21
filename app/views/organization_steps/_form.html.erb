@@ -1,0 +1,18 @@
+<%= form_for @organization, url: wizard_path, method: :put do |f| %>
+  <% if @organization.errors.any? %>
+    <div class="error_messages">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this organization from being saved:</h2>
+      <ul>
+	      <% @organization.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= yield f %>
+  
+  <div class="actions">
+    <%= f.submit "Continue", class:  "btn btn-primary btn-next" %>
+  </div>
+  
+<% end %>

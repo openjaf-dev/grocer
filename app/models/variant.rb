@@ -1,4 +1,6 @@
 class Variant < ActiveRecord::Base
+  belongs_to :account
+  
   belongs_to :product
   has_many :options
   has_many :images

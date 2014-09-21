@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :users
   resources :user_steps
   resources :organizations
+  resources :organization_steps
+
+  
+ 
+  #post "organization_steps/organization", to: "organization_steps#organization"
   
   #devise_scope :user do
   #  #match '/users/sign_out' => 'sessions#destroy', via: [:get, :delete]
