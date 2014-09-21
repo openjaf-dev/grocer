@@ -103,6 +103,12 @@ module Dashboard
               session[:compare_start_date] = nil
               session[:compare_amount] = nil
             end
+
+          else
+            session[:start_date] = Date.today - 3.months
+            session[:amount] = 3.months
+            session[:compare_start_date] = session[:start_date] - 3.months
+            session[:compare_amount] = session[:amount]
           end
           
           get_params #opt

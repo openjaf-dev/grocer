@@ -89,7 +89,7 @@ function createVisualization(json) {
 
   // Get total size of the tree = value of root node from partition.
   totalSize = path.node().__data__.value;
- };
+ }
 
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
@@ -110,7 +110,7 @@ function mouseover(d) {
 
     d3.select("#percentage")
         .style("position","relative")
-        .style("top",-35 +"px")
+        .style("top",-55 +"px")
         .style("left",-112 +"px");
 
 
@@ -128,7 +128,7 @@ function mouseover(d) {
 
     d3.select("#product")
         .style("position","relative")
-        .style("top",-35 +"px")
+        .style("top",-55 +"px")
         .style("left",-110 +"px");
 
   // Fade all the segments.
@@ -347,4 +347,4 @@ function buildHierarchy(csv) {
     }
   }
   return root;
-};
+}
