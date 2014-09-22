@@ -15,21 +15,12 @@
 //= require jquery_ujs
 
 //= require moment
-//= require bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
 
 
 //= require highcharts
 //= require chartkick
+//= app
 
-//= require_tree .
-
-$(function() {
-    $('.datetimepicker').datetimepicker({
-        pickTime: false
-    });
-});
-
-$('.dropdown-toggle').dropdown()  
-
+//= require_tree
