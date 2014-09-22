@@ -10,14 +10,15 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require highcharts
-//= require chartkick
 
 //= require moment
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
+
+//= require jquery
+//= require jquery_ujs
+//= require highcharts
+//= require chartkick
 
 //= require_tree .
 
