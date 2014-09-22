@@ -1,5 +1,5 @@
 module Dashboard
-  class OverviewController < BaseController
+  class OverviewController < ApplicationController
     def index
       @revenues = Order.where(:status => 'complete').count
       @orders = Order.count
