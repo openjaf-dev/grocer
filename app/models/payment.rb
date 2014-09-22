@@ -1,4 +1,6 @@
 class Payment < ActiveRecord::Base
+  include AccountScoped
+  
   belongs_to :order
   has_one :source
   

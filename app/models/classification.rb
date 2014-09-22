@@ -1,4 +1,6 @@
 class Classification < ActiveRecord::Base
+  include AccountScoped
+  
   self.table_name = 'products_taxons'
   acts_as_list
   belongs_to :product, inverse_of: :classifications
