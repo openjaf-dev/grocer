@@ -4,6 +4,36 @@ namespace :sample do
   desc 'Loads Sample Data'
   task :load => :environment do
     
+    Account.delete_all
+    puts 'All Account Deleted.'
+    
+    User.delete_all
+    puts 'All User Deleted.'
+    
+    Organization.delete_all
+    puts 'All Organization Deleted.'
+    
+    Image.delete_all
+    puts 'All Image Deleted.'   
+    
+    Payment.delete_all
+    puts 'All Payment Deleted.'
+    
+    Source.delete_all
+    puts 'All Source Deleted.'
+    
+    OrderTotal.delete_all
+    puts 'All Order_toral Deleted.'
+    
+    Property.delete_all
+    puts 'All Property Deleted.'
+    
+    Variant.delete_all
+    puts 'All Variant Deleted.'
+    
+    Option.delete_all
+    puts 'All Variant Deleted.'
+    
     Product.delete_all
     puts 'All Products Deleted.'
     
@@ -22,18 +52,9 @@ namespace :sample do
     Taxon.delete_all
     puts 'All Taxon Deleted.'
     
-    taxonomies = [
-    	{ name: "Categories" },
-    	{ name: "Brand" }
-    ]
-
-    taxonomies.each do |taxonomy_attrs|
-      Taxonomy.create!(taxonomy_attrs)
-    end
-
-    categories = Taxonomy.find_by_name!("Categories")
-    brands = Taxonomy.find_by_name!("Brand")
-    
+    Adjustment.delete_all
+    puts 'All Adjustment Deleted.'
+        
     
     accounts = [
       {
@@ -104,7 +125,27 @@ namespace :sample do
     
     Account.create!(accounts)
     
+    
     Account.all.each do |account|
+    
+      taxonomies = [
+      	{ 
+          account_id: account.id,
+          name: "Categories" 
+        },
+      	{ 
+          account_id: account.id,
+          name: "Brand" 
+        }
+      ]
+
+      taxonomies.each do |taxonomy_attrs|
+        taxonomy = Taxonomy.new(taxonomy_attrs)
+        taxonomy.save(validate: false)
+      end
+
+      categories = Taxonomy.unscoped.find_by_name!("Categories")
+      brands = Taxonomy.unscoped.find_by_name!("Brand")
     
       taxons = [
         {
@@ -203,7 +244,8 @@ namespace :sample do
       taxons.each do |taxon_attrs|
         if taxon_attrs[:parent]
           taxon_attrs[:parent] = Taxon.find_by(name: taxon_attrs[:parent])
-          Taxon.create!(taxon_attrs)
+          taxon = Taxon.new(taxon_attrs)
+          taxon.save(validate: false)
         end
       end
     
@@ -304,9 +346,9 @@ namespace :sample do
             "variants_attributes" => variants
           }
     
-        p1 =  Product.create!(product)
+        p1 =  Product.new(product)
         p1.taxons = taxons
-        p1.save!
+        p1.save(validate: false)
  
         # orders 
         num_orders = 1 + rand(20)
@@ -319,8 +361,7 @@ namespace :sample do
           quantity = 1 + rand(5)
           item_price = total - ( tax + shipping)
 
-          order = [ 
-           {
+          order = {
               account_id: account.id,
               "number" => Faker::Product.letters(7),
               "status" => states[rand(3)],
@@ -405,10 +446,9 @@ namespace :sample do
                 }
               ]
             }
-
-          ]
       
-          Order.create!(order)
+          o = Order.new(order)
+          o.save(validate: false)
         end
       
       end
