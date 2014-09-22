@@ -115,16 +115,6 @@ ActiveRecord::Schema.define(version: 20140921000733) do
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
   add_index "line_items", ["variant_id"], name: "index_line_items_on_variant_id"
 
-  create_table "members", force: true do |t|
-    t.integer  "account_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "members", ["account_id"], name: "index_members_on_account_id"
-  add_index "members", ["user_id"], name: "index_members_on_user_id"
-
   create_table "options", force: true do |t|
     t.string   "option_type"
     t.string   "option_value"
