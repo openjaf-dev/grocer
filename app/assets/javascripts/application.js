@@ -11,12 +11,15 @@
 // about supported directives.
 //
 
+//= require jquery
+//= require jquery_ujs
+
 //= require moment
+//= require bootstrap
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
 
-//= require jquery
-//= require jquery_ujs
+
 //= require highcharts
 //= require chartkick
 
@@ -27,4 +30,6 @@ $(function() {
         pickTime: false
     });
 });
+
+$('.dropdown-toggle').dropdown()  
 
