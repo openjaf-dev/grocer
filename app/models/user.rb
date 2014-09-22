@@ -1,14 +1,22 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  extend DeviseOverrides
+    
+  # include AccountScoped
+  
+  belongs_to :account
+  
+  #after_initialize :ensure_account
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  has_one :owner_organization, :class_name => 'Organization', :foreign_key => :owner_id
+  accepts_nested_attributes_for :account
+  
+  def ensure_account
+    self.account ||= Account.new(organization: Organization.new)
+    puts "******************* entro en ensuere accont #{self.inspect}"
+  end   
 
-  has_many :organization_users
-  has_many :organizations, :through => :organization_users  
-
-  accepts_nested_attributes_for :owner_organization
 end

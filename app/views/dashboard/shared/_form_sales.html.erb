@@ -1,0 +1,11 @@
+<div class='col-md-10'>
+	<% controller = params[:controller].split('dashboard/sales/')[1].camelize %>
+	<% action = params[:action].gsub('_',' ') %>
+	<strong> <%= "#{controller} " %> <%= if action == 'index' then 'time line' else action end %>  </strong>
+	<% content_for :nav_bar do %>
+	 <%= render 'dashboard/shared/nav_bar_sales' %>
+	<% end %>
+</div>
+
+
+

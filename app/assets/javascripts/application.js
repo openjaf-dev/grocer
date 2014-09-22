@@ -12,6 +12,18 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require highcharts
+//= require chartkick
+
+//= require moment
 //= require bootstrap-sprockets
+//= require bootstrap-datetimepicker
+
 //= require_tree .
+
+$(function() {
+    $('.datetimepicker').datetimepicker({
+        pickTime: false
+    });
+});
+
