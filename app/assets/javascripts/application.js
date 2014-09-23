@@ -24,3 +24,8 @@
 //= app
 
 //= require_tree
+$(function() {
+    $('.datetimepicker').datetimepicker({
+        pickTime: false
+    });
+});
