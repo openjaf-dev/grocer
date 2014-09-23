@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/data', as: 'rails_admin'
-  root to: 'visitors#index'
+  # root to: 'visitors#index'
+  root to: 'dashboard/sales/revenues#index'
+  
   # devise_for :users
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users
@@ -31,7 +33,6 @@ Rails.application.routes.draw do
         %w(wday hour).each do |time_option|   
           get "/#{resource}/by-#{time_option}", to: "#{resource}#by_#{time_option}", as: "#{resource}_by_#{time_option}" 
         end
-        
         get "/#{resource}/by-status", to: "#{resource}#by_status", as: "#{resource}_by_status"
         get "/#{resource}/by-sources", to: "#{resource}#by_sources", as: "#{resource}_by_sources"
       end  
