@@ -23,9 +23,4 @@
 //= require chartkick
 //= app
 
-//= require_tree
-$(function() {
-    $('.datetimepicker').datetimepicker({
-        pickTime: false
-    });
-});
+//= require_tree .
