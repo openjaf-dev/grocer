@@ -89,7 +89,7 @@ function createVisualization(json) {
 
   // Get total size of the tree = value of root node from partition.
   totalSize = path.node().__data__.value;
- };
+ }
 
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
@@ -110,7 +110,7 @@ function mouseover(d) {
 
     d3.select("#percentage")
         .style("position","relative")
-        .style("top",-35 +"px")
+        .style("top",-55 +"px")
         .style("left",-112 +"px");
 
 
@@ -128,7 +128,7 @@ function mouseover(d) {
 
     d3.select("#product")
         .style("position","relative")
-        .style("top",-35 +"px")
+        .style("top",-55 +"px")
         .style("left",-110 +"px");
 
   // Fade all the segments.
@@ -273,7 +273,7 @@ function drawLegend() {
       .attr("rx", li.r)
       .attr("ry", li.r)
       .attr("width", function(d) {
-          var length_b = d.key.length * 7;
+          var length_b = d.key.length * 9;
           if(max_width < length_b)max_width = length_b;
           return  length_b;
       })
@@ -281,7 +281,7 @@ function drawLegend() {
       .style("fill", function(d) { return d.value; }).attr("width", max_width);
 
   g.append("svg:text")
-      .attr("x", function(d) { return (d.key.length * 7) / 2 ; } )
+      .attr("x", function(d) { return (d.key.length * 9) / 2 ; } )
       .attr("y", li.h / 2)
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
@@ -347,4 +347,4 @@ function buildHierarchy(csv) {
     }
   }
   return root;
-};
+}

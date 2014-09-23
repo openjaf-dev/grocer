@@ -6,6 +6,7 @@
   <div id="chart">
     <div id="explanation" style="visibility: hidden;">
       <span id="percentage"></span><br/>
+      <span id="product"></span><br/>
     </div>
   </div>
 </div>
@@ -14,6 +15,9 @@
   <div id="legend" style="visibility: hidden;"></div>
 </div>
 
+<!--TODO:AVERIGUAR COMO NO INCLUIR UN JS EN EL APPLICATION.JS
+    SE ESTA INCLUYENDO 2 VECES CON EL INCLUDE DEL LAYOUT
+-->
 <%= javascript_include_tag 'sequences' %>
 <script>
     function get_random_color(){

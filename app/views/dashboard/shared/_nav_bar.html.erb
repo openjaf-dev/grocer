@@ -3,8 +3,9 @@
 	<div class="btn-group ">
 	  <button id="btnGroupVerticalDrop1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
 	    <%= "#{@start_date} / #{@end_date}"%></br>
-		<small><%= "#{@compare_start_date} / #{@compare_end_date}"%></small>
-		
+        <% if @compare_start_date %>
+		    <small><%= "#{@compare_start_date} / #{@compare_end_date}"%></small>
+		<% end %>
 	    <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" role="menu">
@@ -86,17 +87,14 @@
           <div class="modal-body">
 			  
             <div class="row show-grid">
-				<h5>Date Range:</h5>
-				
-				<h5>Data:</h5>
-				<div class="col-md-6">
-					<%= label_tag :from_time, 'From:' %>
-					<div class="input-group date datetimepicker">
-					  <%= text_field_tag :from_time, nil, class: 'form-control', 
-					  data: { date_format: 'YYYY/MM/DD' } %>
-					  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-					</div>
-				</div>
+              <h5 style="text-align: center">Data:</h5>
+              <div class="col-md-6">
+                <%= label_tag :from_time, 'From:' %>
+                <div class="input-group date datetimepicker">
+                  <%= text_field_tag :from_time, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+              </div>
 
               <div class="col-md-6">
                 <%= label_tag :to_time, 'To:' %>
@@ -109,7 +107,7 @@
             </div>
 			<hr>
             <div class="row show-grid">
-              <h5>Compare To:</h5>
+              <h5 style="text-align: center">Compare To:</h5>
 
               <div class="col-md-6">
                 <%= label_tag :compare_from_time, 'From:' %>

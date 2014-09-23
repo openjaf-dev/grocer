@@ -213,10 +213,8 @@ ActiveRecord::Schema.define(version: 20140921000733) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
-    t.integer  "account_id"
   end
 
-  add_index "products_taxons", ["account_id"], name: "index_products_taxons_on_account_id"
   add_index "products_taxons", ["product_id"], name: "index_products_taxons_on_product_id"
   add_index "products_taxons", ["taxon_id"], name: "index_products_taxons_on_taxon_id"
 
