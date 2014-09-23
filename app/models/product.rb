@@ -34,7 +34,8 @@ class Product < ActiveRecord::Base
         auxiliar_taxon = auxiliar_taxon.parent
         tax << auxiliar_taxon.name
       end
-      tax << auxiliar_taxon.taxonomy.name
+      puts "&&&&&&&&&&&&&& auxiliar_taxon #{auxiliar_taxon.inspect}"
+      tax << auxiliar_taxon.taxonomy.name if auxiliar_taxon && auxiliar_taxon.taxonomy
       tax.reverse!
       tax << rand(1000) #Adding the count of products
       tax_result << tax

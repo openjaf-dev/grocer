@@ -144,10 +144,13 @@ namespace :sample do
         taxonomy.save(validate: false)
       end
 
-      categories = Taxonomy.unscoped.find_by_name!("Categories")
-      brands = Taxonomy.unscoped.find_by_name!("Brand")
+      categories = Taxonomy.new(account_id: account.id, name: "Categories")
+      categories.save(validate: false)
+      
+      brands = Taxonomy.new(account_id: account.id, name: "Brand")
+      brands.save(validate: false)
     
-      taxons = [
+      taxons_attributes = [
         {
           name: "Categories",
           taxonomy: categories,
@@ -239,13 +242,14 @@ namespace :sample do
         },
       ]
     
+      taxons = []
 
-
-      taxons.each do |taxon_attrs|
+      taxons_attributes.each do |taxon_attrs|
         if taxon_attrs[:parent]
           taxon_attrs[:parent] = Taxon.find_by(name: taxon_attrs[:parent])
           taxon = Taxon.new(taxon_attrs)
           taxon.save(validate: false)
+          taxons << taxon
         end
       end
     
@@ -274,7 +278,7 @@ namespace :sample do
         name = "#{Faker::Product.product }"
         sku = name.underscore.gsub(' ', '-')
         cost_price = rand(10.5...100.5).round(2)
-        taxons = Taxon.all.shuffle.slice(0..rand(4))
+        sub_set_taxons = Taxon.unscoped.where(account: account).shuffle.slice(0..rand(4))
         sub_set_prop = all_properties.shuffle.slice(0..rand(4))
         properties = sub_set_prop.map { |p| { account_id: account.id, "name" => p.keys[0], "presentation" => p.values[0].shuffle[0] } }
         options = all_options.shuffle.slice(0..(1 + rand(all_options.length)))
@@ -343,12 +347,17 @@ namespace :sample do
         #        "dimension_attributes" => { "height" => height,"width" => height }
         #      }
         #    ],
-            "variants_attributes" => variants
+            "variants_attributes" => variants,
           }
-    
-        p1 =  Product.new(product)
-        p1.taxons = taxons
-        p1.save(validate: false)
+
+        p1 = Product.new(product)
+        
+        p1.save!(validate: false)
+        
+        p1.taxons = Taxon.unscoped.all.where(account_id: account.id).shuffle.slice(0..rand(4))
+        
+        p1.save!(validate: false)
+        
  
         # orders 
         num_orders = 1 + rand(20)
