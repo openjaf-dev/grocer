@@ -3,20 +3,15 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   extend DeviseOverrides
     
-  # include AccountScoped
+  #include AccountScoped
   
   belongs_to :account
   
-  #after_initialize :ensure_account
+  #after_create :ensure_account
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
   accepts_nested_attributes_for :account
-  
-  def ensure_account
-    self.account ||= Account.new(organization: Organization.new)
-    puts "******************* entro en ensuere accont #{self.inspect}"
-  end   
 
 end
