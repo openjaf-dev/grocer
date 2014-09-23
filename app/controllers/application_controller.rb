@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       if current_user && current_user.account.nil?
         new_account = Account.create(organization: Organization.new)
         current_user.account = new_account
-        current_user.save
+        current_user.save(validate: false)
       end  
       Account.current = current_user.account if signed_in?
       puts "******************** entro en Account.current #{Account.current.inspect} ************
