@@ -25,6 +25,10 @@ module Dashboard
         @amount_data_table = @amount_data_table
       end
 
+      def by_heat
+
+      end
+
     end
   end
 end
