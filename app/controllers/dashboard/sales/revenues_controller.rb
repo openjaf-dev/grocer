@@ -26,6 +26,15 @@ module Dashboard
       end
 
       def by_heat
+          @dates_values = []
+          @dates_values << {:date => Time.now.to_i,:value => 25}
+          @dates_values << {:date => (Time.now + 1.hours).to_i,:value => 25}
+          @dates_values << {:date => (Time.now + 2.hours).to_i,:value => 25}
+          @dates_values << {:date => (Time.now + 3.hours).to_i,:value => 100}
+          @dates_values << {:date => (Time.now + 4.hours).to_i,:value => 25}
+          @dates_values << {:date => (Time.now + 5.hours).to_i,:value => 25}
+          @dates_values << {:date => (Time.now + 6.hours).to_i,:value => 25}
+          @dates_values << {:date => (Time.now + 7.hours).to_i,:value => 25}
 
       end
 

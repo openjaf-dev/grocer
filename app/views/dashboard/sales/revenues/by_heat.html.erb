@@ -3,6 +3,51 @@
 
 <div id="cal-heatmap"></div>
 <script type="text/javascript">
-    var cal = new CalHeatMap();
-    cal.init({});
+    // datas is an array of object
+
+    var datas = [
+            <% @dates_values.each do |d| %>
+                {date: <%=d[:date]%>, value: <%=d[:value]%>},
+            <% end%>
+        {date: <%=(Time.now + 2.hours).to_i%>, value: 30}
+        ]
+
+    var parser = function(data) {
+        var stats = {};
+        for (var d in data) {
+            stats[data[d].date] = data[d].value;
+        }
+        return stats;
+    };
+
+    // Parser will output the object
+    //{
+    //	"946702811": 15,
+    //	"946702812": 25,
+    //	"946702813": 10
+    //}
+
+    var calendar = new CalHeatMap();
+    calendar.init({
+        cellLabel: {
+            empty: "Aucune données pour le {date}",
+            filled: "il y a eu {count} {name} le {date}"
+        },
+        format: {
+            date: function(date) {
+                return "";
+            },
+            legend: null
+        },
+        data: datas,
+        afterLoadData: parser,
+        domain: "hour",
+        range: 24,
+        cellsize: 15,
+        cellpadding: 3,
+
+
+    });
+
+
 </script>
