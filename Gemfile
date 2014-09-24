@@ -13,7 +13,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise','3.3.0'
 gem 'wicked'
-gem 'rails_admin'
+gem 'rails_admin', path: '../rails_admin'
 gem 'ffaker'
 gem 'chartkick'
 gem 'therubyracer'

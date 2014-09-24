@@ -25,6 +25,11 @@ module Dashboard
         end
         
         set_data  
+        
+        respond_to do |format|
+           format.html
+           format.js {}
+        end
       end
       
       %w(wday hour).each do |meth|
