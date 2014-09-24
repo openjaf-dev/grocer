@@ -1,5 +1,7 @@
-PATH
-  remote: ../rails_admin
+GIT
+  remote: git://github.com/sanchojaf/rails_admin.git
+  revision: 8dbd7b92c33358a3b274ef040aeb21a9d5f0680d
+  branch: bytime
   specs:
     rails_admin (0.6.3)
       builder (~> 3.1)
