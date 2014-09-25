@@ -13,12 +13,9 @@
 
 //= require jquery
 //= require jquery_ujs
-
 //= require moment
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
-
-
 //= require highcharts
 //= require chartkick
 //= app

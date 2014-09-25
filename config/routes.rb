@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         %w(wday hour).each do |time_option|   
           get "/#{resource}/by-#{time_option}", to: "#{resource}#by_#{time_option}", as: "#{resource}_by_#{time_option}" 
         end
+        get "/#{resource}/by-heat", to: "#{resource}#by_heat", as: "#{resource}_by_heat"
         get "/#{resource}/by-status", to: "#{resource}#by_status", as: "#{resource}_by_status"
         get "/#{resource}/by-sources", to: "#{resource}#by_sources", as: "#{resource}_by_sources"
       end  
@@ -50,7 +51,7 @@ Rails.application.routes.draw do
         %w(wday hour).each do |time_option|   
           get "/#{resource}/by-#{time_option}", to: "#{resource}#by_#{time_option}", as: "#{resource}_by_#{time_option}" 
         end
-        
+
         get "/#{resource}/by-status", to: "#{resource}#by_status", as: "#{resource}_by_status"
         get "/#{resource}/by-sources", to: "#{resource}#by_sources", as: "#{resource}_by_sources"
       end
