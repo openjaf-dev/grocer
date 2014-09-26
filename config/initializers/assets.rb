@@ -9,3 +9,5 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( highcharts.js )
 Rails.application.config.assets.precompile += %w( d3.js )
 Rails.application.config.assets.precompile += %w( sequences.js )
+Rails.application.config.assets.precompile += %w( cal-heatmap.js )
+Rails.application.config.assets.precompile += %w( rails_admin/d3.js )
