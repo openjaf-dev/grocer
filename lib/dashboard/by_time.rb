@@ -12,17 +12,17 @@ module Dashboard
        # abstrack method that should be define in the class decorated
       end  
       
-      def data_by(fun = 'time_line', date_field = 'created_at', opts = {})
-        opts[:range_date] ||= 'this_year'
+      def data_by(collection, fun = 'time_line', date_field = 'created_at', opts = {})
         opts[:filter] ||= 'week'
-        
-        params = get_params(opts)
-        collection = self.where(["#{date_field} >= ? AND #{date_field} <= ?", params[:from], params[:to]] )
-        collection = collect_by(fun, date_field, collection, opts ).sort
-        [{:name => "#{params[:from]}/#{params[:to]} ", :data => collection }]
+        if opts[:range_date].present? 
+          params = get_params(opts)
+          collection = collection.where(["#{date_field} >= ? AND #{date_field} <= ?", params[:from], params[:to]] )
+        end  
+        collection = collect_by(collection, fun, date_field, opts ).sort
+        [{:data => collection }]
       end
       
-      def collect_by(fun, date_field, collection, opts = {})
+      def collect_by(collection, fun, date_field, opts = {})
         collection = collection.group_by do |o| 
           if opts[:filter].present? 
             fil = get_elements(opts[:filter])
