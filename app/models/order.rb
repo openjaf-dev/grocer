@@ -1,5 +1,22 @@
 class Order < ActiveRecord::Base
   include AccountScoped
+  include Dashboard::ControllerHelpers::ByTime
+  
+  def self.compute(collection)
+     collection.sum { |o| o.totals.nil? ? 0 : o.totals.total }.round(2)
+  end
+
+  def compute_amount(orders)
+    orders.count
+  end
+
+  def by_sources
+    @amount_data = Source.all
+    @amount_data_table = @amount_data.clone
+    amount_set_data_by(:cc_type)
+    @amount_data_table = @amount_data_table
+  end
+  
   
   belongs_to :bill_address, class_name: 'Address'  
   belongs_to :ship_address, class_name: 'Address'

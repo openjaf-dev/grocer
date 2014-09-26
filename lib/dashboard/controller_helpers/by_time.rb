@@ -2,164 +2,68 @@ module Dashboard
   module ControllerHelpers
     module ByTime
       extend ActiveSupport::Concern
-      
-      included do
-        before_action :set_time
-        before_action :get_data
-      end  
-      
-      def klass_to_call
-        # denifine where will be included
-      end  
-    
-      def index        
-        @filter = params[:filter] ||= 'week'   
-        @main_set = filter_by(@filter, @main_data).sort
-        @compare_set = filter_by(@filter, @compare_data).sort if @compare_data
 
-        unless @compare_set.nil?
-          diff = @main_set.empty? ? 0 : @main_set.first[0] - @compare_set.first[0]
-          temp = {}
-          @compare_set.each { |x| temp[ x[0] + diff ] = x[1] }
-          @compare_set = temp
-        end
-        
-        set_data  
-        
-        respond_to do |format|
-           format.html
-           format.js {}
-        end
+      def self.included(base)
+         base.extend(ClassMethods)
       end
-      
-      %w(wday hour).each do |meth|
-        define_method("by_#{meth}") { set_data_by(meth)}
-      end
-      
-      private
-      
-        def set_data_by(fun)
-          @main_set = collect_by(@main_data, fun)
-          @compare_set = collect_by(@compare_data, fun) if @compare_data
-          set_data 
-        end 
+
+      module ClassMethods
         
-        def wday
-          %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
-        end
-        
-        def hour
-          %w(12am 1am 2am 3am 4am 5am 6am 7am 8am 9am 10am 11am 12m 1pm 2pm 3pm 4pm 5pm 6pm 7pm 8pm 9pm 10pm 11pm)
-        end
-    
         def compute
-          # abstrack method for define in each class
+         # abstrack method that should be define in the class decorated
         end  
-    
-        def filter_by(filter, collection)
-          collection.group_by { |o| o.placed_on.send("beginning_of_#{filter}" )}.map { |k, v| [k,compute(v)] } 
-        end  
-       
-        def set_data
-          @data = [{:name => "#{@start_date} / #{@end_date}", :data => @main_set }]
-          @data << {:name => "#{@compare_start_date} / #{@compare_end_date}", :data => @compare_set } if @compare_set
-        end
-
-        def get_data
-          @main_data = klass_to_call.placed_on_between(@start_date, @end_date)
-          @compare_data = klass_to_call.placed_on_between(@compare_start_date, @compare_end_date) if @compare_start_date
-        end
-         
-        def collect_by(collection, fun )
-          collection.group_by{|o| o.placed_on.send(fun)}.sort.map { |c| [self.send(fun)[c[0]], compute(c[1])] }
-        end
-
-        def set_time          
-          d = Date.today
-          opt = {}
-          time_opt = {  'today' => 0.days, 
-                        'yesterday' => 1.days,
-                        'last_week' => 1.weeks, 
-                        'last_month' => 1.months,
-                        'previous_year' => 1.years,
-                        'year_to_date' => d.yday.day,
-                     }
+        
+        def data_by(fun, opts = {})
+          opts[:date_field] ||= :created_at
+          opts[:range_date] ||= 'this_year'
+          opts[:filter] ||= 'week'
           
-          if params[:date_range]
-            t_opt = time_opt[params[:date_range]]
-            #opt = {start: d, amount: t_opt, compare: d - t_opt, compare_amount: t_opt}
-            session[:start_date] = d
-            session[:amount] = t_opt
-            session[:compare_start_date] = d - t_opt
-            session[:compare_amount] = t_opt
-
-          elsif params[:from_time] && params[:to_time]
-            session[:start_date] = params[:to_time].to_date
-            #opt[:start] = params[:to_time].to_date
-            session[:amount] = params[:to_time].to_date - params[:from_time].to_date
-            #opt[:amount] = params[:to_time].to_date - params[:from_time].to_date
-            
-            if params[:compare_from_time] && params[:compare_to_time]
-              session[:compare_start_date] = params[:compare_to_time].to_date
-              #opt[:compare] = params[:compare_to_time].to_date
-              session[:compare_amount] = params[:compare_to_time].to_date - params[:compare_from_time].to_date
-              #opt[:compare_amount] = params[:compare_to_time].to_date - params[:compare_from_time].to_date
-            else
-              session[:compare_start_date] = nil
-              session[:compare_amount] = nil
-            end
-
-          else
-            session[:start_date] = Date.today - 3.months
-            session[:amount] = 3.months
-            session[:compare_start_date] = session[:start_date] - 3.months
-            session[:compare_amount] = session[:amount]
-          end
-          
-          get_params #opt
+          params = get_params(opts)
+          collection = self.where(conditions(opts[:date_field], params))
+          collection = collect_by(fun, collection, opts[:date_field], opts ).sort
+          [{:name => "#{params[:from]}/#{params[:to]} ", :data => collection }]
         end
         
-        def get_params
-          options = {}
-          if current_start_date.nil?
-            options[:start] ||= Date.today
-            session[:start_date] = options[:start]
-          else
-            options[:start] = current_start_date
-          end
-
-          if current_amount.nil?
-            options[:amount] ||= 3.months
-            session[:amount] = options[:amount]
-          else
-            options[:amount] = current_amount
-          end
-
-          if current_compare_start_date.nil?
-            options[:compare] ||= current_start_date - current_amount
-            session[:compare_start_date] = options[:compare]
-          else
-            options[:compare] = current_compare_start_date
-          end
-
-          if current_compare_amount.nil?
-            options[:compare_amount] ||= current_amount
-            session[:compare_amount] = options[:compare_amount]
-          else
-            options[:compare_amount] = current_compare_amount
-          end
-
-
-
-          @start_date =  options[:start] - options[:amount]
-          @end_date = options[:start]
-
-          unless current_compare_start_date.nil?
-            @compare_start_date = options[:compare] - options[:compare_amount]
-            @compare_end_date = options[:compare]
+        def collect_by(fun, collection, date_field, opts = {})
+          case fun
+          when 'time_line'
+            collection.group_by { |o| o.send(opts[:date_field]).send("beginning_of_#{opts[:filter]}" )}.map { |k, v| [k,compute(v)] }  
+          else       
+            elemnts = get_elements(fun)   
+            collection.group_by {|o| o.select(date_field).send(elements)}.sort.map { |c| [self.send(fun)[c[0]], compute(c[1])] }
           end
         end
         
-     end 
+        def get_elements(fun)
+          elements = case fun
+          when 'hours' then %w(12am 1am 2am 3am 4am 5am 6am 7am 8am 9am 10am 11am 12m 1pm 2pm 3pm 4pm 5pm 6pm 7pm 8pm 9pm 10pm 11pm)
+          when 'wday' then %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
+          end  
+        end
+        
+        def get_params(opts)
+         options = case opts[:range_date]
+           when 'today'      then { from: Time.new().to_date.to_s(:db), to: Time.new().to_date.to_s(:db) }
+           when 'yesterday'  then { from: (Time.new().to_date - 1.day).to_s(:db), to: Time.new().to_date.to_s(:db) }
+           when '7_days'     then { from: (Time.new().to_date - 1.week).to_s(:db), to: Time.new().to_date.to_s(:db) }
+           when '14_days'    then { from: (Time.new().to_date - 2.week).to_s(:db), to: Time.new().to_date.to_s(:db) }
+           when 'this_month' then { from: Date.new(Time.now.year, Time.now.month, 1).to_s(:db), to: Date.new(Time.now.year, Time.now.month, -1).to_s(:db) }
+           when 'last_month' then { from: (Date.new(Time.now.year, Time.now.month, 1) - 1.month).to_s(:db), to: (Date.new(Time.now.year, Time.now.month, -1) - 1.month).to_s(:db) }
+           when 'this_year'  then { from: Date.new(Time.now.year, 1, 1).to_s(:db), to: Time.new().to_date.to_s(:db) }
+           when 'last_year'  then { from: Date.new(Time.now.year - 1, 1, 1).to_s(:db), to: Date.new(Time.now.year - 1, 12, -1).to_s(:db) }
+         end           
+        end
+        
+        def conditions(date_field, opts)
+          if opts.key? :to
+            ["#{date_field} >= ? AND #{date_field} <= ?", opts[:from], opts[:to]]
+          else
+            ["#{date_field}  >= ?", opts[:from]]
+          end
+        end
+
+      end
+        
+    end 
   end
 end
