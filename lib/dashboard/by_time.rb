@@ -11,8 +11,8 @@ module Dashboard
        # abstrack method that should be define in the class decorated
       end
 
-      def data_by(collection, fun = 'time_line', date_field = 'created_at', opts = {})
-        opts[:filter] ||= 'week'
+      def data_by(collection, fun, date_field, opts)
+        puts "************* data_by opts[:filter] #{opts[:filter]}"
         collection = collect_by(collection, fun, date_field, opts ).sort
         [{:data => collection }]
       end
