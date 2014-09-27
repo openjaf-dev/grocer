@@ -19,9 +19,22 @@ module Dashboard
 
       def collect_by(collection, fun, date_field, opts = {})
         puts "************ fun collect_by #{fun}"
-        
-        collection = collection.group_by {|o| opts[:filter].present? ? o.send(date_field).send("beginning_of_#{opts[:filter]}") : o.send(date_field)}
-        fun == 'time_line' ? collection.map {|k, v| [k,cal(v)] } : collection.sort.map {|c| [self.send("beginning_of_#{opts[:filter]}")[c[0]], cal(c[1])]} 
+
+
+
+        if date_field
+          collection = collection.group_by {|o| opts[:filter].present? ? o.send(date_field).send("beginning_of_#{opts[:filter]}") : o.send(date_field)}
+        else
+          collection = collection.group_by {|o| opts[:filter].present? ? o.send('placed_on').send("beginning_of_#{opts[:filter]}") : o.send('placed_on')}
+        end
+
+        case fun
+          when 'time_line'
+            collection.map {|k, v| [k,cal(v)] }
+          else
+            collection.sort.map {|c| [self.send("beginning_of_#{opts[:filter]}")[c[0]], cal(c[1])]}
+        end
+
       end
 
     end
