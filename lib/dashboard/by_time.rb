@@ -12,7 +12,7 @@ module Dashboard
       end
 
       def data_by(collection, fun = 'time_line', date_field = 'created_at', opts = {})
-        opts[:filter] ||= 'week'
+        opts[:filter] ||= 'weeks'
         collection = collect_by(collection, fun, date_field, opts ).sort
         [{:data => collection }]
       end
