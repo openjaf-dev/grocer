@@ -1,5 +1,10 @@
 class Order < ActiveRecord::Base
   include AccountScoped
+  include Dashboard::ByTime
+  
+  def self.cal(collection)
+     collection.sum { |o| o.totals.nil? ? 0 : o.totals.total }.round(2)
+  end
   
   belongs_to :bill_address, class_name: 'Address'  
   belongs_to :ship_address, class_name: 'Address'
