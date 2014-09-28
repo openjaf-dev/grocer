@@ -1,10 +1,17 @@
 class Order < ActiveRecord::Base
   include AccountScoped
   include Dashboard::ByTime
-  
-  def self.cal(collection)
-     collection.sum { |o| o.totals.nil? ? 0 : o.totals.total }.round(2)
+
+  def self.def_meth(meth) 
+    return result = case meth 
+    when 'revenues'     then "{ |o| o.totals.nil? ? 0 : o.totals.total }.round(2) "
+    when 'adjusment'    then "{ |o| o.totals.nil? ? 0 : o.totals.adjustment}.round(2) "
+    when 'items'        then "{ |o| o.items.map(&quantity)}"
+    when 'transactions' then "{ |o| o.count}"
+    when 'taxes'        then "{ |o| o.totals.nil? ? 0 : o.totals.tax }.round(2) "
+    end  
   end
+     
   
   belongs_to :bill_address, class_name: 'Address'  
   belongs_to :ship_address, class_name: 'Address'
