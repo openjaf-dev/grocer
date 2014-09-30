@@ -8,22 +8,31 @@ module Dashboard
 
     module ClassMethods
 
-      def data_by(collection, base_cal, fun, date_field, calculation, opts = {})
-        acumulate = "beginning_of_#{opts[:filter]}"
+      def data_by(collection, base_cal, fun, date_field, calculation, acumulate = nil )
+        
+        acumulate = "beginning_of_#{acumulate}" if acumulate.present? and fun =='2-d'
         
         collection = collection.group_by do |o| 
-          opts[:filter].present? ? o.send(date_field).send(acumulate) : o.send(date_field)
+          acumulate.present? ? o.send(date_field).send(acumulate) : o.send(date_field)
         end  
         
         p = eval( "lambda { |coll| coll.map" + send("fun_#{base_cal}") + ".#{calculation} }")
         
-        collection = if fun =='time_line' 
+        collection = if fun =='2-d' 
           collection.map {|k,v| [k,p.call(v)]} 
         else 
-          collection.sort.map {|c| [send(acumulate)[c[0]], [k,p.call(c[1])] ]}
+          collection.sort.map {|c| [ acumulate[c[0]], p.call(c[1]) ] }
         end  
         
-        [{:data => collection.sort }]
+        [{:data => collection}]
+      end   
+      
+      def wday
+       Date::DAYNAMES
+      end
+
+      def hour
+        %w(12am 1am 2am 3am 4am 5am 6am 7am 8am 9am 10am 11am 12m 1pm 2pm 3pm 4pm 5pm 6pm 7pm 8pm 9pm 10pm 11pm)      
       end
 
     end
