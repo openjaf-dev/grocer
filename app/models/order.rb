@@ -2,16 +2,11 @@ class Order < ActiveRecord::Base
   include AccountScoped
   include Dashboard::ByTime
 
-  def self.def_meth(meth) 
-    return result = case meth 
-    when 'revenues'     then "{ |o| o.totals.nil? ? 0 : o.totals.total }"
-    when 'adjusment'    then "{ |o| o.totals.nil? ? 0 : o.totals.adjustment}.round(2) "
-    when 'items'        then "{ |o| (o.line_items.nil? || o.line_items.empty?) ? 0 : o.line_items.sum {|li| li.quantity} }"
-    when 'transactions' then "{ |o| 1 }"
-    when 'taxes'        then "{ |o| o.totals.nil? ? 0 : o.totals.tax }.round(2) "
-    end  
-  end
-     
+  def self.fun_revenues()     "{ |o| o.totals.total unless o.totals.nil? }" end
+  def self.fun_adjusment()    "{ |o| o.totals.total unless o.totals.nil? }" end  
+  def self.fun_items()        "{ |o| o.totals.total unless o.totals.nil? }" end  
+  def self.fun_transactions() "{ |o| o.totals.total unless o.totals.nil? }" end
+  def self.fun_taxes()        "{ |o| o.totals.total unless o.totals.nil? }" end         
   
   belongs_to :bill_address, class_name: 'Address'  
   belongs_to :ship_address, class_name: 'Address'
