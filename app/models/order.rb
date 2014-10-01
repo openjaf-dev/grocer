@@ -2,11 +2,11 @@ class Order < ActiveRecord::Base
   include AccountScoped
   include Dashboard::ByTime
 
-  def self.fun_revenues()     "{ |o| o.totals.total unless o.totals.nil? }" end
-  def self.fun_adjusment()    "{ |o| o.totals.total unless o.totals.nil? }" end  
-  def self.fun_items()        "{ |o| o.totals.total unless o.totals.nil? }" end  
-  def self.fun_transactions() "{ |o| o.totals.total unless o.totals.nil? }" end
-  def self.fun_taxes()        "{ |o| o.totals.total unless o.totals.nil? }" end         
+  def self.revenues()     "{ |o| o.totals.total unless o.totals.nil? }" end
+  def self.adjusment()    "{ |o| o.totals.total unless o.totals.nil? }" end  
+  def self.items()        "{ |o| o.totals.total unless o.totals.nil? }" end  
+  def self.transactions() "{ |o| o.totals.total unless o.totals.nil? }" end
+  def self.taxes()        "{ |o| o.totals.total unless o.totals.nil? }" end         
   
   belongs_to :bill_address, class_name: 'Address'  
   belongs_to :ship_address, class_name: 'Address'

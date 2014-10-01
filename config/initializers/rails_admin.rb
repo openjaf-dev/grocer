@@ -25,6 +25,7 @@ RailsAdmin.config do |config|
   config.included_models = [
     Product,
     Order,
+    OrderTotal,
     LineItem,
     Shipment,
     User,
