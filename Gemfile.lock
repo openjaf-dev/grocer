@@ -17,7 +17,7 @@ PATH
       sass-rails (~> 4.0)
 
 GEM
-  remote: file:/home/jorge/mygems/
+  remote: https://rubygems.org/
   specs:
     actionmailer (4.1.4)
       actionpack (= 4.1.4)
