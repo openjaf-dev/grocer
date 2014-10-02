@@ -371,6 +371,7 @@ namespace :sample do
           item_price = total - ( tax + shipping)
 
           order = {
+            "created_at" => DateTime.now - rand(20).months - rand(31).days-rand(24).hours-rand(60).minutes-rand(60).seconds,
               account_id: account.id,
               "number" => Faker::Product.letters(7),
               "status" => states[rand(3)],
@@ -379,6 +380,7 @@ namespace :sample do
               "currency" => "USD",
               "placed_on" => DateTime.now - rand(20).months - rand(31).days-rand(24).hours-rand(60).minutes-rand(60).seconds,
               "totals_attributes" => {
+                "created_at" => DateTime.now - rand(20).months - rand(31).days-rand(24).hours-rand(60).minutes-rand(60).seconds,
                 account_id: account.id,
                 "item" => item_price,
                 "adjustment" => adjustment,

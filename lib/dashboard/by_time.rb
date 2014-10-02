@@ -8,23 +8,12 @@ module Dashboard
 
     module ClassMethods
 
-      def data_by(collection, base_cal, fun, date_field, calculation, acumulate = nil )
-        
-        acumulate = "beginning_of_#{acumulate}" if acumulate.present? && fun =='2-d'
-        
-        collection = collection.group_by do |o| 
-          acumulate.present? ? o.send(date_field).send(acumulate) : o.send(date_field)
-        end  
-        
-        p = eval( "lambda { |coll| coll.map" + send("fun_#{base_cal}") + ".#{calculation} }")
-        
-        collection = if fun =='2-d' 
-          collection.map {|k,v| [k,p.call(v)]} 
-        else 
-          collection.sort.map {|c| [ send(acumulate)[c[0]], p.call(c[1]) ] }
-        end  
-        
-        [{:data => collection}]
+      def data_by(coll, base_cal, date_field, calculation, acumulate = nil )
+        coll = coll.group_by { |o| acumulate.present? ? o.send(date_field).send(acumulate) : o.send(date_field)}
+        met = attribute_method?(base_cal) ? "(&:#{base_cal})" : "send(#{base_cal})"
+        p = eval "lambda { |coll| coll.map#{met}.#{calculation} }"
+        coll = acumulate =~ /^beginning_of/  ? coll.map {|k,v| [k,p.call(v)]} : coll.sort.map {|c| [ send(acumulate)[c[0]], p.call(c[1]) ]}
+        [{:data => coll}]
       end   
       
       def wday
