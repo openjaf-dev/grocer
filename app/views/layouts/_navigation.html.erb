@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
       </button>
 	 
-		<%= link_to dashboard_sales_revenues_path, class: 'navbar-brand'  do %>
+		<%= link_to '#', class: 'navbar-brand'  do %>
 		  <% if user_signed_in? && 
 		   current_user.account &&
 		   current_user.account.organization &&

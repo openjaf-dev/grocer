@@ -28,21 +28,100 @@ RailsAdmin.config do |config|
     LineItem,
     Shipment,
     User,
-    Organization
+    Organization 
   ]
   
+  config.model 'User' do
+   field :name
+   field :email
+   field :password
+   field :password_confirmation
+   
+  end
+  
+  config.model 'Organization' do 
+
+    visible false
+
+    field :name    
+    
+    field :employees, :enum do
+      
+      enum do
+        ['1-5','6-10', '11-19', '20+']
+      end
+      
+      default_value "$0-$0.2M"
+       
+    end  
+    
+    field :organization_type, :enum do 
+      
+      enum do
+        
+    		["Convenience","Delicatessen","Greengrocer (Fruits and Vegetables)",	
+    		"Health food store",	"Coffee Shop",	"Supermarket",	"Hypermarket"]
+      end
+
+      default_value "Convenience"
+      
+    end
+    
+    
+    field :anual_sales, :enum do 
+
+      enum do
+        ["$0-$0.2M", "$0.2M - $0.5M", "$0.5M - $1.0M","$1.0M - $5.0M", "$5.0M - $9.9M", "$10.0M+"]
+      end
+      
+      default_value "$0-$0.2M"
+      
+    end
+    
+    field :demographic_market, :enum do 
+      
+      enum do
+        ["General","Hispanic","Chinese","Indian","Other Asian",	"European","African"]
+      end
+      
+      default_value "General"
+      
+    end
+
+  end
   
 
   config.actions do
     dashboard                     # mandatory
-    index                         # mandatory
+    
+    index
     new
     export
     bulk_delete
+    
+#    index do
+#      except ['Organization']
+#    end  
+    
+#    new do
+#      except ['Organization']
+#    end
+    
+#    export do
+#      except ['Organization']
+#    end
+    
+#    bulk_delete do
+#      except ['Organization']
+#    end
+    
     show
+    
     edit
+    
     delete
-    show_in_app
+    
+    #show_in_app
 
     ## With an audit adapter, you can add:
     # history_index
