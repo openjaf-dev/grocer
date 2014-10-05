@@ -18,7 +18,6 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :properties
   accepts_nested_attributes_for :taxons
 
-
   validates_presence_of :name, :price, :available_on, :shipping_category
   validates_numericality_of :price, { greater_than: 0 }
 
