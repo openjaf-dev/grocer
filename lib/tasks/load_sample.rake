@@ -325,6 +325,7 @@ namespace :sample do
     
         product = {
             account_id: account.id,
+            created_at: DateTime.now - rand(30).days,
             "name" => name,
             "sku" => sku,
             #"description" => Faker::Lorem.paragraphs(paragraph_count = 3),

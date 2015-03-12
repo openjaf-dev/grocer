@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
   include AccountScoped
   
+  include RailsAdminDynamicCharts::Datetime
+  
   has_many :variants
   has_many :images
   has_many :properties

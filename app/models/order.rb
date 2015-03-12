@@ -1,6 +1,8 @@
 class Order < ActiveRecord::Base
   include AccountScoped
   
+  include RailsAdminDynamicCharts::Datetime
+  
   belongs_to :bill_address, class_name: 'Address'  
   belongs_to :ship_address, class_name: 'Address'
 

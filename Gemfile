@@ -13,10 +13,15 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise','3.3.0'
 gem 'wicked'
-gem 'rails_admin'
+gem 'rails_admin', '0.6.5'
 gem 'ffaker'
 gem 'chartkick'
 gem 'therubyracer'
+
+# charts
+gem 'rails_admin_dynamic_charts', github: 'openjaf/rails_admin_dynamic_charts'
+gem 'chartkick'
+gem 'descriptive_statistics'
 
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
